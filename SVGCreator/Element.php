@@ -66,7 +66,7 @@ abstract class Element {
 	 * @param \SVGCreator\Element $def
 	 * @return \SVGCreator\Element
 	 */
-	protected function addDef(\SVGCreator\Element $def) {
+	public function addDef(\SVGCreator\Element $def) {
 		$this->defs[] = $def;
 		return $def;
 	}
@@ -111,13 +111,32 @@ abstract class Element {
 		if ( count($this->childElements) > 0 ) {
 			// No self closing tag since we have child elements
 			$elementStringData .= '>';
+
+			// See if there are definitions to put if the type is svg this is run here
+			// because the definition area should be the first to appear!
+			if ( $this->type == 'svg' ) {
+				foreach ( $this->childElements as $childElement ) {
+					// Let's get the definitions array from the child element and propagate them to the top!
+					$this->defs = array_merge($this->defs, $childElement->getDefs());
+				}
+
+				if ( count($this->defs) > 0 ) {
+					$defArea = new \SVGCreator\Elements\Defs();
+					foreach ( $this->defs as $def ) {
+						// Append all elements to def area
+						$defArea->append($def);
+					}
+					// Get the defarea xml
+					$elementStringData .= $defArea->getString();
+				}
+			}
+
 			foreach ( $this->childElements as $childElement ) {
 				// Iterate trough each element and write it's child element
 				$elementStringData .= $childElement->getString();
-				// Let's get the definitions array from the child element and propagate them to the top!
-				$this->defs = array_merge($this->defs, $childElement->getDefs());
 			}
-			// Close the svg tag
+
+			// Close the tag
 			$elementStringData .= '</'.$this->type.'>';
 		} else {
 			// Self closing tag, since there are no child elements!

@@ -19,29 +19,9 @@
 
 	$svg = new \SVGCreator\Elements\Svg($attributesSvg);
 
-	$defs = $svg->append(new \SVGCreator\Elements\Defs());
+	$lineEndArrow = new \SVGCreator\ComplexFigures\LineEndArrow(20, 60, 250, 500);
 
-	$defs->append(new \SVGCreator\Elements\Marker())
-		->attr("id", "arrow")
-        ->attr("viewBox", "0 0 10 10")
-        ->attr("refX", 0)
-        ->attr("refY", 5)
-        ->attr("markerUnits", "strokeWidth")
-        ->attr("markerWidth", 4)
-        ->attr("markerHeight", 4)
-        ->attr("orient", "auto")
-        ->attr("fill", "#6aa84f")
-        ->attr("stroke", "stroke")
-        ->append(new \SVGCreator\Elements\Path())
-        ->attr("d", "M 0 0 L 10 5 L 0 10 z");
-
-	$svg->append(new \SVGCreator\Elements\Line())
-		 ->attr('x1', 20)
-		 ->attr('y1', 60)
-		 ->attr('x2', 250)
-		 ->attr('y2', 500)
-		 ->attr('style', 'stroke: #6aa84f; stroke-width: 2px;')
-		 ->attr('marker-end', 'url(#arrow)');
+	$svg->append($lineEndArrow->getElement());
 
 	$elementString = $svg->getString();
 	$svg->saveElementAsFile('sd.svg');
