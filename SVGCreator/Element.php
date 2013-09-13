@@ -3,25 +3,30 @@
 namespace SVGCreator;
 
 abstract class Element {
-	protected $type;
-	protected $attributes;
-	protected $elementString = '';
 
+	/**
+	 * The array that holds all attributes
+	 * @var array
+	 */
+	protected $attributes;
+
+	/**
+	 * The string that has all the element as a string
+	 * @var string
+	 */
+	protected $elementString;
+
+	/**
+	 * Array with the child elements
+	 * @var \SVGCreator\Element[]
+	 */
 	protected $childElements;
 
-	private $allowedTags = array();
-
-	private $defs = array();
-
-	public function __construct($type = '', $attributes = array()) {
-		if ( $type == '' ) {
-			throw new \Exception("No element type inserted.", 1);
-		}
-
-		/**
-		 * Set allowed tags
-		 */
-		$this->allowedTags = array(
+	/**
+	 * Array with the allowed types
+	 * @var array
+	 */
+	public static $allowedTags = array(
 									'circle',
 									'line',
 									'rect',
@@ -30,17 +35,27 @@ abstract class Element {
 									'path',
 									'defs',
 									'marker'
-								  );
+								);
 
-		if ( !in_array($type, $this->allowedTags) ) {
+	/**
+	 * Definitons array
+	 * @var array
+	 */
+	private $defs;
+
+	public function __construct($attributes = array()) {
+
+		// See if the tag is allowed
+		if ( !in_array(static::TYPE, self::$allowedTags) ) {
 			throw new \Exception("That tag is not implemented yet", 1);
 			
 		}
 
-		$this->type = $type;
+		// Setup the private variables
 		$this->attributes = $attributes;
-
+		$this->elementString = '';
 		$this->childElements = array();
+		$this->defs = array();
 	}
 
 	/**
@@ -102,7 +117,7 @@ abstract class Element {
 	public function getString() {
 		// Start writing the tag
 		$elementStringData = '';
-		$elementStringData = '<'.$this->type;
+		$elementStringData = '<' . static::TYPE;
 		foreach ( $this->attributes as $key => $data ) {
 			$elementStringData .= ' ' . $key.'="'.$data.'"';
 		}
@@ -114,13 +129,15 @@ abstract class Element {
 
 			// See if there are definitions to put if the type is svg this is run here
 			// because the definition area should be the first to appear!
-			if ( $this->type == 'svg' ) {
+			if  ( static::TYPE == 'svg' ) {
 				foreach ( $this->childElements as $childElement ) {
 					// Let's get the definitions array from the child element and propagate them to the top!
 					$this->defs = array_merge($this->defs, $childElement->getDefs());
 				}
 
+				// If there are definitions to add then add them
 				if ( count($this->defs) > 0 ) {
+					// Create the defs area
 					$defArea = new \SVGCreator\Elements\Defs();
 					foreach ( $this->defs as $def ) {
 						// Append all elements to def area
@@ -137,7 +154,7 @@ abstract class Element {
 			}
 
 			// Close the tag
-			$elementStringData .= '</'.$this->type.'>';
+			$elementStringData .= '</' . static::TYPE . '>';
 		} else {
 			// Self closing tag, since there are no child elements!
 			$elementStringData .= '/>';
