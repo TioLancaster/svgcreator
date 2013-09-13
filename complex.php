@@ -44,8 +44,7 @@
 		 ->attr('marker-end', 'url(#arrow)');
 
 	$elementString = $svg->getString();
-
-	// <line x1="116" y1="101" x2="81" y2="19" timeevent="100.230" filter_type="11" marker-end="url(#allshots-1369-color-0)" style="stroke: #6aa84f; stroke-width: 2px;"></line>
+	$svg->saveElementAsFile('sd.svg');
 ?>
 
 <?=$elementString;?>

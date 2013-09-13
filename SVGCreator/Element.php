@@ -11,6 +11,8 @@ abstract class Element {
 
 	private $allowedTags = array();
 
+	private $defs = array();
+
 	public function __construct($type = '', $attributes = array()) {
 		if ( $type == '' ) {
 			throw new \Exception("No element type inserted.", 1);
@@ -42,6 +44,34 @@ abstract class Element {
 	}
 
 	/**
+	 * Returns the defs array for this element
+	 * @return array
+	 */
+	protected function getDefs() {
+		return $this->defs;
+	}
+
+	/**
+	 * Set's the definition array
+	 * @param array 
+	 * @return \SVGCreator\Element
+	 */
+	protected function setDefs($defs = array()) {
+		$this->defs = $defs;
+		return $this;
+	}
+
+	/**
+	 * Adds an def element to the element
+	 * @param \SVGCreator\Element $def
+	 * @return \SVGCreator\Element
+	 */
+	protected function addDef(\SVGCreator\Element $def) {
+		$this->defs[] = $def;
+		return $def;
+	}
+
+	/**
 	 * Set's an attribute for the current element
 	 * @param  mixed 	 $attrKey		The name of the attribute
 	 * @param  string    $attrValue		The value of the attribute
@@ -70,19 +100,31 @@ abstract class Element {
 	 * @return string  				Returns the element string
 	 */
 	public function getString() {
-		$this->elementString = '<'.$this->type;
+		// Start writing the tag
+		$elementStringData = '';
+		$elementStringData = '<'.$this->type;
 		foreach ( $this->attributes as $key => $data ) {
-			$this->elementString .= ' ' . $key.'="'.$data.'"';
+			$elementStringData .= ' ' . $key.'="'.$data.'"';
 		}
+
+		// If it has child elements we have to write them!
 		if ( count($this->childElements) > 0 ) {
-			$this->elementString .= '>';
+			// No self closing tag since we have child elements
+			$elementStringData .= '>';
 			foreach ( $this->childElements as $childElement ) {
-				$this->elementString .= $childElement->getString();
+				// Iterate trough each element and write it's child element
+				$elementStringData .= $childElement->getString();
+				// Let's get the definitions array from the child element and propagate them to the top!
+				$this->defs = array_merge($this->defs, $childElement->getDefs());
 			}
-			$this->elementString .= '</'.$this->type.'>';
+			// Close the svg tag
+			$elementStringData .= '</'.$this->type.'>';
 		} else {
-			$this->elementString .= '/>';
+			// Self closing tag, since there are no child elements!
+			$elementStringData .= '/>';
 		}
+
+		$this->elementString = $elementStringData;
 
 		return $this->elementString;
 	}
@@ -92,9 +134,10 @@ abstract class Element {
 	 * @param  string 	$fileName 	The filename with path to save
 	 * @return string 				Returns the filename or false on failure
 	 */
-	protected function saveElementAsFile($fileName) {
+	public function saveElementAsFile($fileName) {
+		// Get the element string
 		$this->getString();
-		if ( false === file_put_contents($file, $this->elementString) ) {
+		if ( false === file_put_contents($fileName, $this->elementString) ) {
 			return false;
 		} else {
 			return $fileName;
