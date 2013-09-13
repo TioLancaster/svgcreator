@@ -7,11 +7,6 @@ class LineEndArrow {
 	private $element;
 
 	public function __construct($x1, $y1, $x2, $y2) {
-		// Create defs area for line arrow ends
-		// This defs should be appended to the svg element
-		// And then retreaved by the svg element when writing him!
-
-		// Create line
 
 		// Create marker
 		$marker = new \SVGCreator\Elements\Marker();
