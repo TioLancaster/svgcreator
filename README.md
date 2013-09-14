@@ -17,10 +17,6 @@ Elements available:
 
 Also added an example of a class to make a complex figure, a line with an arrow on the end
 
-This class validates the most common parameters in the following elements:
-- circle ( cx, cy, r )
-- rect (width, height, x, y )
-- line ( x1, y1, x2, y2 )
-- svg ( width, height )
+This class validates the most common parameters in several elements, read more on the Wiki: https://github.com/TioLancaster/svgcreator/wiki
 
-Check the wiki: https://github.com/TioLancaster/svgcreator/wiki
+Check the wiki: 
