@@ -13,7 +13,7 @@ namespace SVGCreator\Elements;
 
 class Path extends \SVGCreator\Element {
 
-	const TYPE = 'path';
+	const TYPE = \SVGCreator\Element::PATH;
 
 	static protected $mandatoryFields = array();
 

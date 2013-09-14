@@ -29,7 +29,8 @@ class LineEndArrow {
 			 ->attr('y1', $y1)
 			 ->attr('x2', $x2)
 			 ->attr('y2', $y2)
-			 ->attr('style', 'stroke: #6aa84f; stroke-width: 2px;')
+			 ->attr('stroke', '#6aa84f')
+			 ->attr('stroke-width', '2px')
 			 ->attr('marker-end', 'url(#arrow)');
 
 		// Add the marker to the defs of this element

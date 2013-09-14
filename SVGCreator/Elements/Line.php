@@ -13,7 +13,7 @@ namespace SVGCreator\Elements;
 
 class Line extends \SVGCreator\Element {
 
-	const TYPE = 'line';
+	const TYPE = \SVGCreator\Element::LINE;
 
 	static protected $mandatoryFields = array(
     									'x1',

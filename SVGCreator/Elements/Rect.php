@@ -13,7 +13,7 @@ namespace SVGCreator\Elements;
 
 class Rect extends \SVGCreator\Element {
 
-    const TYPE = 'rect';
+    const TYPE = \SVGCreator\Element::RECT;
 
     static protected $mandatoryFields = array(
     									'width',

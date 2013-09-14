@@ -13,7 +13,7 @@ namespace SVGCreator\Elements;
 
 class Circle extends \SVGCreator\Element {
 
-	const TYPE = 'circle';
+	const TYPE = \SVGCreator\Element::CIRCLE;
 
 	static protected $mandatoryFields = array(
     									'cx',

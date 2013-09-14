@@ -13,7 +13,7 @@ namespace SVGCreator\Elements;
 
 class Svg extends \SVGCreator\Element {
 
-	const TYPE = 'svg';
+	const TYPE = \SVGCreator\Element::SVG;
 
 	static protected $mandatoryFields = array(
     									'width',

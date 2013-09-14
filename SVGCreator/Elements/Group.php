@@ -13,7 +13,7 @@ namespace SVGCreator\Elements;
 
 class Group extends \SVGCreator\Element {
 
-	const TYPE = 'g';
+	const TYPE = \SVGCreator\Element::GROUP;
 
 	static protected $mandatoryFields = array(
     									
