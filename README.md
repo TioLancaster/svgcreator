@@ -19,4 +19,9 @@ Also added an example of a class to make a complex figure, a line with an arrow 
 
 This class validates the most common parameters in several elements, read more on the Wiki: https://github.com/TioLancaster/svgcreator/wiki
 
-Check the wiki: 
+TODO List:
+More elements, polygon is missing.
+
+More complex elements.
+
+Build complex elements with few parameters, for example an polygon passing only the x, y and radius and number of vertices.
