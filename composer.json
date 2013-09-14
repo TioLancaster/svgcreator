@@ -1,0 +1,24 @@
+{
+    "name": "tiolancaster/svgcreator",
+    "description": "An simple SVG Generator",
+    "license": "MIT",
+    "keywords": ["generator", "svg", "creator"],
+    "version": "0.0.1-dev",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Sérgio Diniz",
+            "email": "sergiof.diniz@gmail.com",
+            "homepage": "https://github.com/TioLancaster"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "autoload": {
+        "psr-0": {
+            "SVGCreator": "src"
+        }
+    }
+}
