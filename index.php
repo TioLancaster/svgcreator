@@ -9,6 +9,21 @@
 	$elementString = '';
 
 
+	$svgCreator = new \SVGCreator\SVGCreator();
+	$svgCreator->append('svg')
+				->append('rect')
+				->attr('width', 100)
+				->attr('height', 200)
+				->append(new \SVGCreator\Elements\Circle())
+				->attr('r', 10)
+				->attr('cx', 40)
+				->attr('cy', 50);
+
+	$string = $svgCreator->getString();
+
+
+
+
 	$attributesSvg = array(
 							'width' => 1000,
 							'height' => 1000

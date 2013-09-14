@@ -48,7 +48,6 @@ abstract class Element {
 		// See if the tag is allowed
 		if ( !in_array(static::TYPE, self::$allowedTags) ) {
 			throw new \Exception("That tag is not implemented yet", 1);
-			
 		}
 
 		// Setup the private variables
