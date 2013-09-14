@@ -1,28 +1,17 @@
 <?php
 
 	include_once('SVGCreator/Element.php');
+	include_once('SVGCreator/SVGException.php');
 	include_once('SVGCreator/Elements/Rect.php');
 	include_once('SVGCreator/Elements/Group.php');
 	include_once('SVGCreator/Elements/Svg.php');
 	include_once('SVGCreator/Elements/Circle.php');
+	include_once('SVGCreator/Elements/Marker.php');
+	include_once('SVGCreator/Elements/Defs.php');
+	include_once('SVGCreator/Elements/Line.php');
+	include_once('SVGCreator/Elements/Path.php');
 
 	$elementString = '';
-
-
-	$svgCreator = new \SVGCreator\SVGCreator();
-	$svgCreator->append('svg')
-				->append('rect')
-				->attr('width', 100)
-				->attr('height', 200)
-				->append(new \SVGCreator\Elements\Circle())
-				->attr('r', 10)
-				->attr('cx', 40)
-				->attr('cy', 50);
-
-	$string = $svgCreator->getString();
-
-
-
 
 	$attributesSvg = array(
 							'width' => 1000,
@@ -65,6 +54,31 @@
 			->attr('fill', '#6aa84f')
 			->attr('stroke', '#000')
 			->attr('stroke-width', '5px');
+
+
+	$defs = $svg->append(new \SVGCreator\Elements\Defs());
+
+	$defs->append(new \SVGCreator\Elements\Marker())
+		->attr("id", "arrow")
+        ->attr("viewBox", "0 0 10 10")
+        ->attr("refX", 0)
+        ->attr("refY", 5)
+        ->attr("markerUnits", "strokeWidth")
+        ->attr("markerWidth", 4)
+        ->attr("markerHeight", 4)
+        ->attr("orient", "auto")
+        ->attr("fill", "#6aa84f")
+        ->attr("stroke", "stroke")
+        ->append(new \SVGCreator\Elements\Path())
+        ->attr("d", "M 0 0 L 10 5 L 0 10 z");
+
+	$svg->append(new \SVGCreator\Elements\Line())
+		 ->attr('x1', 20)
+		 ->attr('y1', 60)
+		 ->attr('x2', 250)
+		 ->attr('y2', 500)
+		 ->attr('style', 'stroke: #6aa84f; stroke-width: 2px;')
+		 ->attr('marker-end', 'url(#arrow)');
 
 	$elementString = $svg->getString();
 ?>

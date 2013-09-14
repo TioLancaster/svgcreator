@@ -1,8 +1,26 @@
 <?php
 
+/**
+ * Main Element Class
+ *
+ * @package    SVGCreator
+ * @subpackage my-subpackage
+ * @author     Sérgio Diniz
+ * @version    1.0
+ */
+
 namespace SVGCreator;
 
 abstract class Element {
+
+	const CIRCLE = 'circle';
+	const DEFS = 'defs';
+	const GROUP = 'g';
+	const LINE = 'line';
+	const MARKER = 'marker';
+	const PATH = 'path';
+	const RECT = 'rect';
+	const SVG = 'svg';
 
 	/**
 	 * The array that holds all attributes
@@ -23,32 +41,12 @@ abstract class Element {
 	protected $childElements;
 
 	/**
-	 * Array with the allowed types
-	 * @var array
-	 */
-	private static $allowedTags = array(
-									'circle',
-									'line',
-									'rect',
-									'g',
-									'svg',
-									'path',
-									'defs',
-									'marker'
-								);
-
-	/**
 	 * Definitons array
 	 * @var array
 	 */
 	private $defs;
 
 	public function __construct($attributes = array()) {
-
-		// See if the tag is allowed
-		if ( !in_array(static::TYPE, self::$allowedTags) ) {
-			throw new \Exception("That tag is not implemented yet", 1);
-		}
 
 		// Setup the private variables
 		$this->attributes = $attributes;
@@ -97,7 +95,7 @@ abstract class Element {
     	foreach ( static::$mandatoryFields as $field ) {
     		// If the field does not exist then exit with exception
     		if ( !array_key_exists($field, $this->attributes) ) {
-    			throw new \Exception("The field ".$field." does not exist for ".static::TYPE.".", 1);
+    			throw new \SVGCreator\SVGException("The field ".$field." does not exist for ".static::TYPE.".", 1);
     		}
     	}
 	}
@@ -117,13 +115,56 @@ abstract class Element {
 	}
 
 	/**
+	 * Factory for building the several elements available
+	 * @param  string  			 $type 			The type of element to build
+	 * @return \SVGCreator\Element
+	 */
+	private function factoryElement($type) {
+		switch ( $type ) {
+			case \SVGCreator\Element::CIRCLE:
+				return new \SVGCreator\Elements\Circle();
+				break;
+			case \SVGCreator\Element::DEFS:
+				return new \SVGCreator\Elements\Defs();
+				break;
+			case \SVGCreator\Element::GROUP:
+				return new \SVGCreator\Elements\Group();
+				break;
+			case \SVGCreator\Element::LINE:
+				return new \SVGCreator\Elements\Line();
+				break;
+			case \SVGCreator\Element::MARKER:
+				return new \SVGCreator\Elements\Marker();
+				break;
+			case \SVGCreator\Element::PATH:
+				return new \SVGCreator\Elements\Path();
+				break;
+			case \SVGCreator\Element::RECT:
+				return new \SVGCreator\Elements\Rect();
+				break;
+			case \SVGCreator\Element::SVG:
+				return new \SVGCreator\Elements\Svg();
+				break;
+			default:
+				throw new \SVGCreator\SVGException("The tag ".$type." is not implemented yet", 1);
+				break;
+		}
+	}
+
+	/**
 	 * Appends an element to the current element
-	 * @param  \SVGCreator\Element 	$element 	The element to append to this element
+	 * @param  mixed            	$element 	The element to append to this element could be an object \SVGCreator\Element or a string of the type to create
 	 * @return \SVGCreator\Element 				The element append
 	 */
-	public function append(\SVGCreator\Element $element) {
-		$this->childElements[] = $element;
-		return $element;
+	public function append($element) {
+		if ( true === $element instanceof \SVGCreator\Element ) {
+			$this->childElements[] = $element;
+			return $element;
+		} else {
+			$elementCreated = $this->factoryElement($element);
+			$this->childElements[] = $elementCreated;
+			return $elementCreated;
+		}
 	}
 
 	/**

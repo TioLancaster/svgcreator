@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Marker Class
+ *
+ * @package    SVGCreator
+ * @subpackage Elements
+ * @author     Sérgio Diniz
+ * @version    1.0
+ */
+
 namespace SVGCreator\Elements;
 
 class Path extends \SVGCreator\Element {

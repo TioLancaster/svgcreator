@@ -1,6 +1,7 @@
 <?php
 	include_once('SVGCreator/Element.php');
 	include_once('SVGCreator/SVGCreator.php');
+	include_once('SVGCreator/SVGException.php');
 	include_once('SVGCreator/Elements/Rect.php');
 	include_once('SVGCreator/Elements/Group.php');
 	include_once('SVGCreator/Elements/Svg.php');
@@ -13,14 +14,14 @@
 
 
 	$svgCreator = new \SVGCreator\SVGCreator(1000, 1000);
-	$svgCreator->append('rect')
+	$svgCreator->append(\SVGCreator\SVGCreator::RECT)
 				->attr('width', 100)
 				->attr('height', 200)
 				->attr('x', 250)
 				->attr('y', 60)
 				->attr('fill', '#ff0000');
 
-	$svgCreator->append(new \SVGCreator\Elements\Circle())
+	$svgCreator->append(\SVGCreator\SVGCreator::CIRCLE)
 				->attr('r', 10)
 				->attr('cx', 40)
 				->attr('cy', 50)
@@ -28,7 +29,7 @@
 
 	$defs = $svgCreator->append(new \SVGCreator\Elements\Defs());
 
-	$defs->append(new \SVGCreator\Elements\Marker())
+	$defs->append(\SVGCreator\SVGCreator::MARKER)
 		->attr("id", "arrow")
         ->attr("viewBox", "0 0 10 10")
         ->attr("refX", 0)

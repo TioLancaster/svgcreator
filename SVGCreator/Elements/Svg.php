@@ -2,6 +2,15 @@
 
 namespace SVGCreator\Elements;
 
+/**
+ * SVG Class
+ *
+ * @package    SVGCreator
+ * @subpackage Elements
+ * @author     Sérgio Diniz
+ * @version    1.0
+ */
+
 class Svg extends \SVGCreator\Element {
 
 	const TYPE = 'svg';
@@ -19,8 +28,7 @@ class Svg extends \SVGCreator\Element {
     		if ( array_key_exists($field, $this->attributes) ) {
     			$value = (int) $this->attributes[$field];
     			if ( $value < 0 ) {
-    				throw new \Exception("The ".$field." value is lesser than 0, in element ".self::TYPE, 1);
-    				
+    				throw new \SVGCreator\SVGException("The ".$field." value is lesser than 0, in element ".self::TYPE, 1);
     			}
     		}
     	}
