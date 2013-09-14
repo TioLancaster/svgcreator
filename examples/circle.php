@@ -10,6 +10,7 @@
 	include_once('../src/SVGCreator/Elements/Defs.php');
 	include_once('../src/SVGCreator/Elements/Line.php');
 	include_once('../src/SVGCreator/Elements/Path.php');
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -36,9 +37,8 @@
 					->attr('stroke', '#000000')
 					->attr('stroke-width', '5px');
 
-				$circle = new \SVGCreator\Elements\Circle();
-
-				$circle->attr('cx', 250)
+				$svg->append(\SVGCreator\Element::CIRCLE)
+					->attr('cx', 250)
 					->attr('cy', 140)
 					->attr('fill', 'green')
 					->attr('r', 20)
