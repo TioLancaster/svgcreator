@@ -6,6 +6,8 @@
 	include_once('SVGCreator/Elements/Svg.php');
 	include_once('SVGCreator/Elements/Circle.php');
 
+	$elementString = '';
+
 
 	$attributesSvg = array(
 							'width' => 1000,
@@ -15,12 +17,13 @@
 	$svg = new \SVGCreator\Elements\Svg($attributesSvg);
 
 	$rect = new \SVGCreator\Elements\Rect();
-	$svg->append($rect)
-		->attr('width', 25)
+	$rect->attr('width', 25)
 		->attr('height', 10)
 		->attr('style', 'fill:rgb(0,0,255);')
 		->attr('x', 50)
 		->attr('y', 60);
+
+	$svg->append($rect);
 
 	$g = new \SVGCreator\Elements\Group();
 	$svg->append($g)

@@ -26,7 +26,7 @@ abstract class Element {
 	 * Array with the allowed types
 	 * @var array
 	 */
-	public static $allowedTags = array(
+	private static $allowedTags = array(
 									'circle',
 									'line',
 									'rect',
@@ -86,6 +86,23 @@ abstract class Element {
 		return $def;
 	}
 
+	abstract protected function validateElementValues();
+
+	private function validateElement() {
+		$this->validateMandatoryAttribs();
+		$this->validateElementValues();
+	}
+
+	protected function validateMandatoryAttribs() {
+		// Iterate over all fields
+    	foreach ( static::$mandatoryFields as $field ) {
+    		// If the field does not exist then exit with exception
+    		if ( !array_key_exists($field, $this->attributes) ) {
+    			throw new \Exception("The field ".$field." does not exist for ".static::TYPE.".", 1);
+    		}
+    	}
+	}
+
 	/**
 	 * Set's an attribute for the current element
 	 * @param  mixed 	 $attrKey		The name of the attribute
@@ -115,6 +132,9 @@ abstract class Element {
 	 * @return string  				Returns the element string
 	 */
 	public function getString() {
+		// Validate the element first of all!
+		$this->validateElement();
+
 		// Start writing the tag
 		$elementStringData = '';
 		$elementStringData = '<' . static::TYPE;
@@ -148,8 +168,8 @@ abstract class Element {
 				}
 			}
 
+			// Iterate trough each element and write it's child element
 			foreach ( $this->childElements as $childElement ) {
-				// Iterate trough each element and write it's child element
 				$elementStringData .= $childElement->getString();
 			}
 
