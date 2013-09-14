@@ -19,7 +19,13 @@ Also added an example of a class to make a complex figure, a line with an arrow 
 
 This class validates the most common parameters in several elements, read more on the Wiki: https://github.com/TioLancaster/svgcreator/wiki
 
-TODO List:
+Features
+==========
+- Chaining methods
+- Composer ready ( https://packagist.org/packages/tiolancaster/svgcreator )
+
+TODO List
+==========
 More elements, polygon is missing.
 
 More complex elements.
