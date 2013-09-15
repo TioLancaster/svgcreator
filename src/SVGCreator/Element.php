@@ -104,14 +104,24 @@ abstract class Element {
 	 * Set's an attribute for the current element
 	 * @param  mixed 	 $attrKey		The name of the attribute
 	 * @param  string    $attrValue		The value of the attribute
-	 * @return \SVGCreator\Element
+	 * @return mixed 					Could be an \SVGCreator\Element or could be the value of the attribute, 
+	 * this means that the second parameter wasn't passed
 	 */
-	public function attr($attrKey, $attrValue) {
-		if ( !is_array($this->attributes) ) {
-			$this->attributes = array();
+	public function attr($attrKey, $attrValue = null) {
+		if ( $attrValue != null ) {
+			if ( !is_array($this->attributes) ) {
+				$this->attributes = array();
+			}
+			$this->attributes[$attrKey] = $attrValue;
+			return $this;
+		} else {
+			if ( array_key_exists($attrKey, $this->attributes) ) {
+				return $this->attributes[$attrKey];
+			} else {
+				return null;
+			}
 		}
-		$this->attributes[$attrKey] = $attrValue;
-		return $this;
+		
 	}
 
 	/**

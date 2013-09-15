@@ -1,7 +1,7 @@
 svgcreator
 ==========
 
-SVG Creator, PHP class to generate svg files
+SVG Creator, PHP class to generate svg files ( somewhat inspired by d3js )
 
 Elements available:
 
