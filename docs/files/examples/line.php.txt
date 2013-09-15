@@ -21,41 +21,32 @@
 	<body>
 		<section>
 			<?php
-$attributesSvg = array(
-			'width' => 1000,
-			'height' => 1000
-		  );
+				$attributesSvg = array(
+							'width' => 1000,
+							'height' => 1000
+						  );
 
-$svg = new \SVGCreator\Elements\Svg($attributesSvg);
+				$svg = new \SVGCreator\Elements\Svg($attributesSvg);
 
-$svg->append(\SVGCreator\Element::LINE)
-	->attr('x1', 100)
-	->attr('y1', 100)
-	->attr('x2', 325)
-	->attr('y2', 250)
-	->attr('stroke', 'blue');
+				$svg->append(\SVGCreator\Element::LINE)
+					->attr('x1', 100)
+					->attr('y1', 100)
+					->attr('x2', 325)
+					->attr('y2', 250)
+					->attr('stroke', 'blue');
 
-$attributes = array(
-					'cx' => 250
-					'cy' => 140
-					'fill' => 'green'
-					'r' => 20
-					'stroke' => 'cyan'
-					'stroke-width' => '5px'
-					);
-$circle = new \SVGCreator\Elements\Circle($attributes);
-$svg->append($circle);
+				$circle = new \SVGCreator\Elements\Circle();
 
-$circle->attr('cx', 250)
-	->attr('cy', 140)
-	->attr('fill', 'green')
-	->attr('r', 20)
-	->attr('stroke', 'cyan')
-	->attr('stroke-width', '5px');
+				$circle->attr('cx', 250)
+					->attr('cy', 140)
+					->attr('fill', 'green')
+					->attr('r', 20)
+					->attr('stroke', 'cyan')
+					->attr('stroke-width', '5px');
 
-$svg->append($circle);
+				$svg->append($circle);
 
-echo $svg->getString();
+				echo $svg->getString();
 			?>
 		</section>
 	</body>

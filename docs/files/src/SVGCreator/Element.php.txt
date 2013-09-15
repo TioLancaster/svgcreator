@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Main Element Class
  *
@@ -11,6 +10,11 @@
 
 namespace SVGCreator;
 
+/**
+ * Main element class
+ * 
+ * @abstract
+ */
 abstract class Element {
 
 	const CIRCLE = 'circle';
