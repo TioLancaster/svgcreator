@@ -13,6 +13,7 @@ Elements available:
 - path
 - rect
 - svg
+- text
 
 
 Also added an example of a class to make a complex figure, a line with an arrow on the end
