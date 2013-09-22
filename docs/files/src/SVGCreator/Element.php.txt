@@ -25,6 +25,7 @@ abstract class Element {
 	const PATH = 'path';
 	const RECT = 'rect';
 	const SVG = 'svg';
+	const TEXT = 'text';
 
 	/**
 	 * The array that holds all attributes
@@ -49,6 +50,12 @@ abstract class Element {
 	 * @var array
 	 */
 	private $defs;
+
+	/**
+	 * The text to put inside the element
+	 * @var string
+	 */
+	private $text = null;
 
 	public function __construct($attributes = array()) {
 
@@ -159,6 +166,9 @@ abstract class Element {
 			case \SVGCreator\Element::SVG:
 				return new \SVGCreator\Elements\Svg();
 				break;
+			case \SVGCreator\Element::TEXT:
+				return new \SVGCreator\Elements\Text();
+				break;
 			default:
 				throw new \SVGCreator\SVGException("The tag ".$type." is not implemented yet", 1);
 				break;
@@ -195,11 +205,15 @@ abstract class Element {
 		foreach ( $this->attributes as $key => $data ) {
 			$elementStringData .= ' ' . $key.'="'.$data.'"';
 		}
+		// Close the initiating tag
+		$elementStringData .= '>';
+
+		if ( $this->text !== null ) {
+			$elementStringData .= $this->text;
+		}
 
 		// If it has child elements we have to write them!
 		if ( count($this->childElements) > 0 ) {
-			// No self closing tag since we have child elements
-			$elementStringData .= '>';
 
 			// See if there are definitions to put if the type is svg this is run here
 			// because the definition area should be the first to appear!
@@ -226,13 +240,10 @@ abstract class Element {
 			foreach ( $this->childElements as $childElement ) {
 				$elementStringData .= $childElement->getString();
 			}
-
-			// Close the tag
-			$elementStringData .= '</' . static::TYPE . '>';
-		} else {
-			// Self closing tag, since there are no child elements!
-			$elementStringData .= '/>';
 		}
+		// Always close the tag with no self closing, simplifys things a bit
+		// and it's not a couple of bytes that has us worried
+		$elementStringData .= '</' . static::TYPE . '>';
 
 		$this->elementString = $elementStringData;
 
@@ -252,5 +263,15 @@ abstract class Element {
 		} else {
 			return $fileName;
 		}
+	}
+
+	/**
+	 * Set's or returns the text of the element
+	 * @param  string 	 $text 	 The text to add to the element
+	 * @return \SVGCreator\Element
+	 */
+	public function text($text) {
+		$this->text = $text;
+		return $this;
 	}
 }
