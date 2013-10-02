@@ -26,6 +26,7 @@ abstract class Element {
 	const RECT = 'rect';
 	const SVG = 'svg';
 	const TEXT = 'text';
+	const POLYGON = 'polygon';
 
 	/**
 	 * The array that holds all attributes
@@ -82,6 +83,14 @@ abstract class Element {
 	protected function setDefs($defs = array()) {
 		$this->defs = $defs;
 		return $this;
+	}
+
+	/**
+	 * Set's the attributes for this element
+	 * @param array  	$attributes  	An array with the attributes
+	 */
+	public function setAttributes($attributes) {
+		$this->attributes = $attributes;
 	}
 
 	/**
@@ -168,6 +177,9 @@ abstract class Element {
 				break;
 			case \SVGCreator\Element::TEXT:
 				return new \SVGCreator\Elements\Text();
+				break;
+			case \SVGCreator\Element::POLYGON:
+				return new \SVGCreator\Elements\Polygon();
 				break;
 			default:
 				throw new \SVGCreator\SVGException("The tag ".$type." is not implemented yet", 1);
