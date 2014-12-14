@@ -128,7 +128,7 @@ abstract class Element {
 	 * this means that the second parameter wasn't passed
 	 */
 	public function attr($attrKey, $attrValue = null) {
-		if ( $attrValue != null ) {
+		if ( $attrValue !== null ) {
 			if ( !is_array($this->attributes) ) {
 				$this->attributes = array();
 			}
