@@ -1,23 +1,33 @@
 <?php
 
-/**
- * Marker Class
- *
- * @package    SVGCreator
- * @subpackage Elements
- * @author     Sérgio Diniz
- * @version    1.0
- */
+	/**
+	 * Marker Class
+	 *
+	 * @package    SVGCreator
+	 * @subpackage Elements
+	 * @author     Sérgio Diniz
+	 * @version    1.0
+	 */
 
-namespace SVGCreator\Elements;
+	namespace SVGCreator\Elements;
 
-class Path extends \SVGCreator\Element {
+	class Path extends \SVGCreator\Element {
 
-	const TYPE = \SVGCreator\Element::PATH;
+		const TYPE = \SVGCreator\Element::PATH;
 
-	static protected $mandatoryFields = array();
+		/**
+         * Holds the mandatory fields for this element
+         * 
+         * @var array
+         */
+		static protected $mandatoryFields = array();
 
-	protected function validateElementValues() {
-		return true;
+		/**
+         * Specific implementation for validation of element values
+         *
+         * @throws \SVGCreator\SVGException
+         * @return void
+         */
+		protected function validateElementValues() {
+		}
 	}
-}
