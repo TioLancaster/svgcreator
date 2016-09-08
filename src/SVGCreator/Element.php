@@ -2,8 +2,8 @@
 	/**
 	 * Main Element Class
 	 *
+	 * @todo  	   Don't accept/return mixed variables, so we can be fully compatible with php 7.0
 	 * @package    SVGCreator
-	 * @subpackage my-subpackage
 	 * @author     Sérgio Diniz
 	 * @version    1.0
 	 */
@@ -152,10 +152,10 @@
 		 * @param  string    $attrValue		The value of the attribute
 		 * 
 		 * @return mixed 					Could be an \SVGCreator\Element or could be the value of the attribute, 
-		 * this means that the second parameter wasn't passed
+		 *                          		this means that the second parameter wasn't passed
 		 */
 		public function attr($attrKey, $attrValue = null) {
-			if ( $attrValue !== null ) {
+			if ( !is_null($attrValue) ) {
 				if ( !is_array($this->attributes) ) {
 					$this->attributes = array();
 				}

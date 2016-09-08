@@ -10,15 +10,14 @@
 	include_once('../src/SVGCreator/Elements/Defs.php');
 	include_once('../src/SVGCreator/Elements/Line.php');
 	include_once('../src/SVGCreator/Elements/Path.php');
-	include_once('../src/SVGCreator/Elements/Text.php');
 	include_once('../src/SVGCreator/Elements/Polygon.php');
-
+	include_once('../src/SVGCreator/ComplexFigures/ComplexPolygon.php');
 ?>
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Polygon Example</title>
+		<title>Complex Examples</title>
 	</head>
 
 	<body>
@@ -31,19 +30,23 @@
 
 				$svg = new \SVGCreator\Elements\Svg($attributesSvg);
 
-				$svg->append(\SVGCreator\Element::POLYGON)
-					->attr('fill', 'red')
-					->attr('stroke', 'blue')
-					->attr('points', '100,200 300,50 400,40')
-					->attr('transform', 'rotate(45,100,200)');
+				$complexElement = new \SVGCreator\ComplexFigures\ComplexPolygon(150, 150, 30, 5, array(
+					"fill" => "#6aa84f"
+					));
 
-				$svg->append(\SVGCreator\Element::CIRCLE)
-					->attr('cx', '50%')
-					->attr('cy', '30%')
-					->attr('fill', 'green')
-					->attr('r', 20)
-					->attr('stroke', 'cyan')
-					->attr('stroke-width', '5px');
+				$svg->append($complexElement->getElement());
+
+				$complexElement = new \SVGCreator\ComplexFigures\ComplexPolygon(400, 400, 50, 10, array(
+					"fill" => "#ff0000"
+					));
+
+				$svg->append($complexElement->getElement());
+
+				$complexElement = new \SVGCreator\ComplexFigures\ComplexPolygon(150, 800, 40, 3, array(
+					"fill" => "#00ffff"
+					));
+
+				$svg->append($complexElement->getElement());
 
 				echo $svg->getString();
 			?>
