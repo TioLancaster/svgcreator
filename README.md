@@ -27,8 +27,7 @@ Features
 
 TODO List
 ==========
-More elements, polygon is missing.
-
+More elements
 More complex elements.
 
 Build complex elements with few parameters, for example an polygon passing only the x, y and radius and number of vertices.
